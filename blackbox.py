@@ -2,6 +2,7 @@ import smbus
 import time
 import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
+import paho.mqtt.client as mqtt
 
 ADC_ADDR = 0x4b
 BUS = smbus.SMBus(1)
@@ -52,8 +53,8 @@ try:
             time.sleep(0.5)
 
         if game_started:
-            val_x = read_adc(0)
-            val_y = read_adc(1)
+            val_x = read_adc(1)
+            val_y = read_adc(0)
             moved = False
 
             if val_x < 50:
@@ -92,5 +93,6 @@ try:
 except KeyboardInterrupt:
     GPIO.cleanup()
     lcd.clear()
+
 
 
